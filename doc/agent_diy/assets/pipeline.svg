@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="640" viewBox="0 0 1440 640">
+  <defs>
+    <style>
+      .title { font: 700 30px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .h2 { font: 700 20px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .txt { font: 600 15px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1e293b; }
+      .sub { font: 500 13px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .box { stroke: #0f172a; stroke-width: 2.2; rx: 14; ry: 14; }
+      .chip { stroke: #0f172a; stroke-width: 1.4; rx: 8; ry: 8; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 9 7; }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0,0 11,4 0,8" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1440" height="640" fill="#f8fafc"/>
+  <text x="40" y="52" class="title">agent_diy 训练闭环（当前实现）</text>
+  <text x="40" y="80" class="sub">包含：Temporal Mamba 分支、两阶段训练参数、行为监控指标链路。</text>
+  <rect x="1180" y="20" width="220" height="36" rx="8" ry="8" fill="#111827" opacity="0.92"/>
+  <text x="1194" y="44" style="font:600 14px Segoe UI, Microsoft YaHei, sans-serif; fill:#f8fafc;">pipeline v2 2026-04-18</text>
+
+  <rect x="40" y="130" width="230" height="130" class="box" fill="#dbeafe"/>
+  <text x="72" y="168" class="h2">Environment</text>
+  <text x="60" y="196" class="txt">reset / step / env_obs</text>
+  <text x="60" y="220" class="sub">map, heroes, monsters, organs</text>
+  <text x="60" y="242" class="sub">legal_action / flags</text>
+
+  <rect x="320" y="108" width="330" height="174" class="box" fill="#dcfce7"/>
+  <text x="348" y="146" class="h2">Preprocessor</text>
+  <text x="340" y="174" class="txt">memory stitch + reward shaping</text>
+  <rect x="340" y="190" width="290" height="34" class="chip" fill="#bbf7d0"/>
+  <text x="354" y="212" class="sub">current_obs: local/global/scalar</text>
+  <rect x="340" y="230" width="290" height="34" class="chip" fill="#bbf7d0"/>
+  <text x="354" y="252" class="sub">temporal_tokens + valid_mask</text>
+
+  <rect x="700" y="92" width="410" height="206" class="box" fill="#fef3c7"/>
+  <text x="728" y="130" class="h2">Model</text>
+  <rect x="728" y="148" width="354" height="38" class="chip" fill="#fde68a"/>
+  <text x="742" y="172" class="sub">Current branch: Local/Global CNN + Scalar MLP</text>
+  <rect x="728" y="192" width="354" height="38" class="chip" fill="#fde68a"/>
+  <text x="742" y="216" class="sub">Temporal branch: Linear + Mamba x2 + masked pool</text>
+  <rect x="728" y="236" width="354" height="38" class="chip" fill="#fde68a"/>
+  <text x="742" y="260" class="sub">Residual fusion -&gt; actor(16), critic(1)</text>
+
+  <rect x="1160" y="130" width="240" height="130" class="box" fill="#fee2e2"/>
+  <text x="1228" y="168" class="h2">Action</text>
+  <text x="1180" y="196" class="txt">masked softmax + sample</text>
+  <text x="1180" y="220" class="sub">legal_action(16), action[0..15]</text>
+  <text x="1180" y="242" class="sub">risk-filter fallback safe</text>
+
+  <rect x="340" y="350" width="560" height="170" class="box" fill="#e0e7ff"/>
+  <text x="560" y="388" class="h2">Algorithm (PPO)</text>
+  <text x="372" y="416" class="txt">policy/value clipped loss + entropy regularization</text>
+  <text x="372" y="440" class="txt">GAE + grad clip + train_step based Stage switch</text>
+  <rect x="372" y="454" width="240" height="46" class="chip" fill="#c7d2fe"/>
+  <text x="384" y="473" class="sub">Stage-1: lr=4e-4, beta=0.003</text>
+  <text x="384" y="492" class="sub">clip=0.25, vf=0.6, batch=1024</text>
+  <rect x="628" y="454" width="240" height="46" class="chip" fill="#c7d2fe"/>
+  <text x="640" y="473" class="sub">Stage-2: lr=2e-4, beta=0.0015</text>
+  <text x="640" y="492" class="sub">clip=0.2, vf=0.8, batch=2048</text>
+
+  <rect x="940" y="350" width="460" height="170" class="box" fill="#ffedd5"/>
+  <text x="1110" y="388" class="h2">Workflow / Monitor</text>
+  <text x="962" y="416" class="txt">sample_process -&gt; learn -&gt; remain_info emit</text>
+  <rect x="962" y="432" width="418" height="28" class="chip" fill="#fed7aa"/>
+  <text x="974" y="451" class="sub">danger_treasure_chase_rate | stuck_event_rate | corner_stuck_duration</text>
+  <rect x="962" y="464" width="418" height="28" class="chip" fill="#fed7aa"/>
+  <text x="974" y="483" class="sub">first_pass_pick | return_path_caught | post500_survival | early_jump_step</text>
+
+  <path d="M270 195 L320 195" class="arrow"/>
+  <path d="M650 195 L700 195" class="arrow"/>
+  <path d="M1110 195 L1160 195" class="arrow"/>
+  <path d="M1280 260 L1280 310 L1180 310 L1180 350" class="arrow"/>
+  <path d="M910 435 L940 435" class="arrow"/>
+  <path d="M500 350 L500 315 L156 315 L156 260" class="arrow"/>
+  <path d="M1220 520 L1220 568 L156 568 L156 260" class="arrow dash"/>
+</svg>

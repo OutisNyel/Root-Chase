@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+  <defs>
+    <style>
+      .title { font: 700 28px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .h2 { font: 700 19px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .txt { font: 600 14px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1e293b; }
+      .sub { font: 500 13px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .box { stroke: #0f172a; stroke-width: 2; rx: 12; ry: 12; }
+      .arrow { stroke: #0f172a; stroke-width: 2.8; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0,0 11,4 0,8" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="420" fill="#f8fafc"/>
+  <text x="40" y="48" class="title">Reward Visual Legend (SVG)</text>
+  <text x="40" y="74" class="sub">与上方 Mermaid 对应：总奖励由正向驱动与负向约束共同决定。</text>
+  <rect x="1060" y="18" width="190" height="34" rx="8" ry="8" fill="#111827" opacity="0.9"/>
+  <text x="1072" y="41" style="font:600 14px Segoe UI, Microsoft YaHei, sans-serif; fill:#f8fafc;">reward_legend v2</text>
+
+  <rect x="70" y="140" width="250" height="120" class="box" fill="#dbeafe"/>
+  <text x="134" y="184" class="h2">reward(t)</text>
+  <text x="98" y="214" class="txt">final clipped reward</text>
+  <text x="96" y="236" class="sub">REWARD_CLIP_MIN/MAX</text>
+
+  <rect x="430" y="90" width="340" height="130" class="box" fill="#dcfce7"/>
+  <text x="486" y="130" class="h2">Positive Terms (+)</text>
+  <text x="456" y="158" class="txt">survive / explore / treasure / buff</text>
+  <text x="456" y="182" class="txt">flash efficiency</text>
+  <text x="456" y="206" class="sub">驱动收益与进展（收益项）</text>
+
+  <rect x="430" y="238" width="340" height="130" class="box" fill="#fee2e2"/>
+  <text x="484" y="278" class="h2">Negative Terms (-)</text>
+  <text x="456" y="306" class="txt">risk / stuck / ping-pong / terminal</text>
+  <text x="456" y="330" class="sub">抑制危险行为与无效循环</text>
+
+  <rect x="890" y="160" width="320" height="130" class="box" fill="#fef3c7"/>
+  <text x="938" y="200" class="h2">Danger Gate</text>
+  <text x="916" y="228" class="txt">if high-risk:</text>
+  <text x="916" y="252" class="txt">treasure_reward *= 0.15</text>
+  <text x="916" y="276" class="sub">追逐时降低贪宝箱倾向</text>
+
+  <path d="M320 200 L430 155" class="arrow"/>
+  <path d="M320 200 L430 302" class="arrow"/>
+  <path d="M770 155 L890 205" class="arrow"/>
+  <path d="M770 302 L890 245" class="arrow"/>
+</svg>

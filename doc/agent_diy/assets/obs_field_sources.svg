@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="900" viewBox="0 0 1320 900">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 30px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .h2 { font: 700 20px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .txt { font: 600 15px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1e293b; }
+      .sub { font: 500 13px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .box { stroke: #0f172a; stroke-width: 2; rx: 14; ry: 14; }
+      .chip { stroke: #0f172a; stroke-width: 1.4; rx: 8; ry: 8; }
+      .arrow { stroke: #0f172a; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0,0 11,4 0,8" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1320" height="900"/>
+  <text x="40" y="52" class="title">字段来源图（Environment -> Feature -> Reward / Monitor）</text>
+  <text x="40" y="82" class="sub">同一环境字段会同时参与观测、奖励与诊断指标。此图用于排查“看到了什么、学到了什么”。</text>
+
+  <rect x="40" y="120" width="360" height="720" class="box" fill="#e0f2fe"/>
+  <text x="66" y="156" class="h2">Environment Fields</text>
+  <rect x="66" y="180" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="215" class="txt">map_info / tile legality / explored</text>
+  <rect x="66" y="250" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="285" class="txt">heroes (pos, score, buff, flash)</text>
+  <rect x="66" y="320" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="355" class="txt">monsters (pos, visible)</text>
+  <rect x="66" y="390" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="425" class="txt">organs (treasure/buff status)</text>
+  <rect x="66" y="460" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="495" class="txt">legal_action (mask or index list)</text>
+  <rect x="66" y="530" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="565" class="txt">frame_no / terminated / truncated</text>
+  <rect x="66" y="600" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="635" class="txt">last_action / prev reward cache</text>
+  <rect x="66" y="670" width="308" height="58" class="chip" fill="#bae6fd"/><text x="82" y="705" class="txt">runtime context (step, stage)</text>
+
+  <rect x="470" y="120" width="390" height="720" class="box" fill="#dcfce7"/>
+  <text x="494" y="156" class="h2">Preprocessor Outputs</text>
+  <rect x="494" y="180" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="214" class="txt">local_tensor(9x21x21)</text>
+  <text x="510" y="238" class="sub">可走/探索/宝箱/buff/怪物风险/英雄状态</text>
+  <rect x="494" y="272" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="306" class="txt">global_tensor(6x32x32)</text>
+  <text x="510" y="330" class="sub">128x128 记忆池化后的全局图层</text>
+  <rect x="494" y="364" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="398" class="txt">scalar_vec(48)</text>
+  <text x="510" y="422" class="sub">基础统计 + last action + prev reward</text>
+  <rect x="494" y="456" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="490" class="txt">temporal_tokens(21x96)</text>
+  <text x="510" y="514" class="sub">63 环形缓冲 + mixed21 抽帧 + 补齐</text>
+  <rect x="494" y="548" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="582" class="txt">temporal_valid_mask(21)</text>
+  <text x="510" y="606" class="sub">真实帧=1，补齐帧=0</text>
+  <rect x="494" y="640" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="674" class="txt">legal_action(16)</text>
+  <text x="510" y="698" class="sub">高风险动作过滤后保底回退</text>
+  <rect x="494" y="732" width="342" height="78" class="chip" fill="#bbf7d0"/>
+  <text x="510" y="766" class="txt">reward terms + remain_info metrics</text>
+  <text x="510" y="790" class="sub">用于 PPO 学习与监控验收</text>
+
+  <rect x="930" y="120" width="350" height="330" class="box" fill="#fee2e2"/>
+  <text x="954" y="156" class="h2">Learning Path</text>
+  <rect x="954" y="184" width="302" height="60" class="chip" fill="#fecaca"/>
+  <text x="970" y="220" class="txt">Model: logits(16), value(1)</text>
+  <rect x="954" y="258" width="302" height="60" class="chip" fill="#fecaca"/>
+  <text x="970" y="294" class="txt">Algorithm: masked PPO loss</text>
+  <rect x="954" y="332" width="302" height="94" class="chip" fill="#fecaca"/>
+  <text x="970" y="366" class="txt">Two-stage schedule</text>
+  <text x="970" y="390" class="sub">Stage-1: aggressive explore</text>
+  <text x="970" y="412" class="sub">Stage-2: stable convergence</text>
+
+  <rect x="930" y="480" width="350" height="360" class="box" fill="#fef3c7"/>
+  <text x="954" y="516" class="h2">Monitor / Diagnosis</text>
+  <rect x="954" y="544" width="302" height="56" class="chip" fill="#fde68a"/>
+  <text x="970" y="578" class="txt">danger_treasure_chase_rate</text>
+  <rect x="954" y="610" width="302" height="56" class="chip" fill="#fde68a"/>
+  <text x="970" y="644" class="txt">stuck_event_rate / corner_stuck_duration</text>
+  <rect x="954" y="676" width="302" height="56" class="chip" fill="#fde68a"/>
+  <text x="970" y="710" class="txt">post500_survival / return_path_caught</text>
+  <rect x="954" y="742" width="302" height="82" class="chip" fill="#fde68a"/>
+  <text x="970" y="776" class="txt">early_jump_step / first_pass_pick</text>
+  <text x="970" y="800" class="sub">与回放联合判定策略质量</text>
+
+  <path d="M400 208 L494 218" class="arrow"/>
+  <path d="M400 278 L494 310" class="arrow"/>
+  <path d="M400 348 L494 214" class="arrow"/>
+  <path d="M400 418 L494 306" class="arrow"/>
+  <path d="M400 488 L494 674" class="arrow"/>
+  <path d="M400 558 L494 766" class="arrow"/>
+  <path d="M400 628 L494 398" class="arrow"/>
+  <path d="M400 698 L494 490" class="arrow"/>
+
+  <path d="M860 676 L954 214" class="arrow"/>
+  <path d="M860 766 L954 294" class="arrow"/>
+  <path d="M860 766 L954 578" class="arrow"/>
+  <path d="M860 766 L954 644" class="arrow"/>
+  <path d="M860 766 L954 710" class="arrow"/>
+  <path d="M860 766 L954 776" class="arrow"/>
+
+  <path d="M1110 450 L1110 480" class="arrow dash"/>
+  <text x="1120" y="468" class="sub">learning feeds diagnosis</text>
+</svg>

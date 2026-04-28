@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360">
+  <defs>
+    <style>
+      .title { font: 700 28px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .h2 { font: 700 19px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .txt { font: 600 14px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1e293b; }
+      .sub { font: 500 13px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .box { stroke: #0f172a; stroke-width: 2; rx: 12; ry: 12; }
+      .arrow { stroke: #0f172a; stroke-width: 2.8; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0,0 11,4 0,8" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="360" fill="#f8fafc"/>
+  <text x="40" y="48" class="title">Two-Phase Retrain Legend (SVG)</text>
+  <text x="40" y="74" class="sub">与上方 Mermaid 对应：0~200k 激进探索，200k 之后稳态收敛。</text>
+  <rect x="1066" y="18" width="184" height="34" rx="8" ry="8" fill="#111827" opacity="0.9"/>
+  <text x="1078" y="41" style="font:600 14px Segoe UI, Microsoft YaHei, sans-serif; fill:#f8fafc;">phase_legend v2</text>
+
+  <rect x="80" y="120" width="480" height="190" class="box" fill="#dbeafe"/>
+  <text x="112" y="160" class="h2">Stage-1 (train_step &lt; 200000)</text>
+  <text x="112" y="188" class="txt">lr=4e-4, beta=0.003, vf_coef=0.6</text>
+  <text x="112" y="214" class="txt">clip=0.25, grad_clip=0.7, batch=1024</text>
+  <text x="112" y="242" class="sub">高学习率 + 高探索，优先快速形成策略跃迁</text>
+
+  <rect x="720" y="120" width="480" height="190" class="box" fill="#dcfce7"/>
+  <text x="752" y="160" class="h2">Stage-2 (train_step &gt;= 200000)</text>
+  <text x="752" y="188" class="txt">lr=2e-4, beta=0.0015, vf_coef=0.8</text>
+  <text x="752" y="214" class="txt">clip=0.2, grad_clip=0.5, batch=2048</text>
+  <text x="752" y="242" class="sub">低学习率 + 稳态收敛，降低抖动并固化策略</text>
+
+  <path d="M560 215 L720 215" class="arrow"/>
+  <text x="600" y="198" class="sub">auto switch</text>
+</svg>

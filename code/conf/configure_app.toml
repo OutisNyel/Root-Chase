@@ -1,0 +1,31 @@
+[app]
+
+# Training paradigm: keep off-policy because local_aisrv_workflow rejects
+# kaiwudrl native on-policy. PPO freshness is controlled by FIFO replay limits.
+algorithm_on_policy_or_off_policy = "off-policy"
+
+# Replay buffer configurations.
+replay_buffer_capacity = 128
+preload_ratio = 0.125
+reverb_remover = "reverb.selectors.Fifo"
+reverb_sampler = "reverb.selectors.Fifo"
+reverb_rate_limiter = "SampleToInsertRatio"
+reverb_samples_per_insert = 1
+reverb_error_buffer = 8
+
+# Learner batch size.
+train_batch_size = 8
+
+# Save/push frequency.
+dump_model_freq = 1
+model_file_sync_per_minutes = 1
+modelpool_max_save_model_count = 1
+
+# Post-train preload:
+# The initial learner model is loaded once from code/agent_ppo/ckpt.
+# preload_model_id=0 means agent_ppo load_model auto-loads the unique
+# model.ckpt-*.pkl file in preload_model_dir.
+# Later checkpoints are still saved by the normal framework save path.
+preload_model = true
+preload_model_dir = "agent_ppo/ckpt"
+preload_model_id = 0

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520">
+  <defs>
+    <style>
+      .title { font: 700 28px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .label { font: 600 17px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .small { font: 500 14px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .box { stroke: #1e293b; stroke-width: 2; rx: 16; ry: 16; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect width="1280" height="520" fill="#f8fafc" />
+  <text x="40" y="52" class="title">agent_ppo_adv1 训练闭环</text>
+
+  <rect x="40" y="110" width="220" height="110" class="box" fill="#dbeafe" />
+  <text x="74" y="152" class="label">Environment</text>
+  <text x="64" y="182" class="small">reset / step / env_obs</text>
+
+  <rect x="310" y="90" width="290" height="150" class="box" fill="#dcfce7" />
+  <text x="358" y="132" class="label">Preprocessor</text>
+  <text x="336" y="162" class="small">memory stitch + reward shaping</text>
+  <text x="337" y="188" class="small">local/global/scalar feature</text>
+
+  <rect x="650" y="90" width="280" height="150" class="box" fill="#fef3c7" />
+  <text x="756" y="132" class="label">Model</text>
+  <text x="680" y="162" class="small">Local CNN + Global CNN + Scalar MLP</text>
+  <text x="708" y="188" class="small">logits(16) + value(1)</text>
+
+  <rect x="980" y="90" width="250" height="150" class="box" fill="#fee2e2" />
+  <text x="1054" y="132" class="label">Agent</text>
+  <text x="1007" y="162" class="small">legal mask softmax + sample</text>
+  <text x="1032" y="188" class="small">action in [0..15]</text>
+
+  <rect x="350" y="320" width="600" height="140" class="box" fill="#e0e7ff" />
+  <text x="575" y="360" class="label">Algorithm (PPO)</text>
+  <text x="422" y="388" class="small">policy clipped loss + value clipped loss + entropy regularization</text>
+  <text x="473" y="414" class="small">GAE advantage + gradient clip + monitor metrics</text>
+
+  <path d="M260 165 L310 165" class="arrow" />
+  <path d="M600 165 L650 165" class="arrow" />
+  <path d="M930 165 L980 165" class="arrow" />
+  <path d="M1105 240 L1105 280 L860 280 L860 320" class="arrow" />
+  <path d="M440 320 L440 280 L110 280 L110 220" class="arrow" />
+</svg>
+

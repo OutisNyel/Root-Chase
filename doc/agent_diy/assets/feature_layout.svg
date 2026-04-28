@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620">
+  <defs>
+    <style>
+      .title { font: 700 28px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #111827; }
+      .h2 { font: 700 20px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #111827; }
+      .txt { font: 600 15px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1f2937; }
+      .sub { font: 500 13px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #374151; }
+      .box { stroke: #111827; stroke-width: 2; rx: 14; ry: 14; }
+      .arrow { stroke: #111827; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="620" fill="#f9fafb" />
+  <text x="40" y="50" class="title">观测切分与模型融合</text>
+
+  <rect x="40" y="90" width="380" height="210" class="box" fill="#dbeafe" />
+  <text x="64" y="130" class="h2">Local Tensor</text>
+  <text x="64" y="160" class="txt">shape: 9 x 21 x 21</text>
+  <text x="64" y="188" class="sub">passable / explored / treasure / buff / risk</text>
+  <text x="64" y="214" class="sub">hero center / flash ready / buff active</text>
+  <text x="64" y="246" class="txt">flat dim: 3969</text>
+
+  <rect x="450" y="90" width="380" height="210" class="box" fill="#dcfce7" />
+  <text x="474" y="130" class="h2">Global Tensor</text>
+  <text x="474" y="160" class="txt">shape: 6 x 32 x 32</text>
+  <text x="474" y="188" class="sub">128x128 memory pooled to 32x32</text>
+  <text x="474" y="214" class="sub">passable/explored/treasure/buff/risk</text>
+  <text x="474" y="246" class="txt">flat dim: 6144</text>
+
+  <rect x="860" y="90" width="380" height="210" class="box" fill="#fef3c7" />
+  <text x="884" y="130" class="h2">Scalar Vector</text>
+  <text x="884" y="160" class="txt">shape: 48</text>
+  <text x="884" y="188" class="sub">base(28) + last_action_onehot(16)</text>
+  <text x="884" y="214" class="sub">+ prev_reward_vector(4)</text>
+  <text x="884" y="246" class="txt">flat dim: 48</text>
+
+  <rect x="180" y="360" width="300" height="180" class="box" fill="#bfdbfe" />
+  <text x="230" y="402" class="h2">Local CNN</text>
+  <text x="206" y="432" class="sub">Conv + ResBlock x4 + GAP</text>
+  <text x="226" y="462" class="txt">output: 64</text>
+
+  <rect x="500" y="360" width="300" height="180" class="box" fill="#bbf7d0" />
+  <text x="540" y="402" class="h2">Global CNN</text>
+  <text x="525" y="432" class="sub">Conv + Downsample ResBlocks</text>
+  <text x="546" y="462" class="txt">output: 64</text>
+
+  <rect x="820" y="360" width="220" height="180" class="box" fill="#fde68a" />
+  <text x="858" y="402" class="h2">Scalar MLP</text>
+  <text x="855" y="432" class="sub">48 -&gt; 256 -&gt; 128</text>
+  <text x="878" y="462" class="txt">output: 128</text>
+
+  <rect x="1060" y="360" width="180" height="180" class="box" fill="#fecaca" />
+  <text x="1105" y="402" class="h2">Heads</text>
+  <text x="1083" y="432" class="sub">fusion MLP</text>
+  <text x="1078" y="460" class="sub">actor: 16</text>
+  <text x="1078" y="486" class="sub">critic: 1</text>
+
+  <path d="M230 300 L230 360" class="arrow"/>
+  <path d="M640 300 L640 360" class="arrow"/>
+  <path d="M1048 300 L930 360" class="arrow"/>
+  <path d="M480 450 L500 450" class="arrow"/>
+  <path d="M800 450 L820 450" class="arrow"/>
+  <path d="M1040 450 L1060 450" class="arrow"/>
+</svg>

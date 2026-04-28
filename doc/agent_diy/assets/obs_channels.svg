@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="860" viewBox="0 0 1320 860">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 30px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .h2 { font: 700 22px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .txt { font: 600 16px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1e293b; }
+      .sub { font: 500 14px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .box { stroke: #0f172a; stroke-width: 2.2; rx: 14; ry: 14; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .chip { stroke: #0f172a; stroke-width: 1.4; rx: 8; ry: 8; }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0,0 11,4 0,8" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1320" height="860"/>
+  <text x="40" y="52" class="title">观测通道示意图（obs = 12198）</text>
+  <text x="40" y="82" class="sub">当前帧观测 + 时序 token + 有效掩码。颜色用于区分分支，不代表数值大小。</text>
+
+  <rect x="40" y="120" width="1240" height="170" class="box" fill="#e2e8f0"/>
+  <text x="64" y="156" class="h2">Flat Obs Layout</text>
+  <rect x="64" y="178" width="650" height="80" class="chip" fill="#dbeafe"/>
+  <text x="84" y="225" class="txt">current_obs = 10161</text>
+  <rect x="724" y="178" width="420" height="80" class="chip" fill="#dcfce7"/>
+  <text x="744" y="225" class="txt">temporal_tokens = 21 x 96 = 2016</text>
+  <rect x="1154" y="178" width="102" height="80" class="chip" fill="#fef3c7"/>
+  <text x="1166" y="225" class="txt">mask=21</text>
+
+  <path d="M390 290 L390 340" class="arrow"/>
+  <path d="M934 290 L934 340" class="arrow"/>
+  <path d="M1205 290 L1205 340" class="arrow"/>
+
+  <rect x="40" y="340" width="520" height="470" class="box" fill="#dbeafe"/>
+  <text x="64" y="378" class="h2">Local Tensor (9 x 21 x 21 = 3969)</text>
+  <text x="64" y="407" class="sub">局部可见范围，突出“眼前可走 / 可拿 / 风险”。</text>
+  <rect x="64" y="430" width="472" height="50" class="chip" fill="#bfdbfe"/><text x="82" y="462" class="txt">0 passable</text>
+  <rect x="64" y="486" width="472" height="50" class="chip" fill="#bfdbfe"/><text x="82" y="518" class="txt">1 explored</text>
+  <rect x="64" y="542" width="472" height="50" class="chip" fill="#bfdbfe"/><text x="82" y="574" class="txt">2 treasure_alive</text>
+  <rect x="64" y="598" width="472" height="50" class="chip" fill="#bfdbfe"/><text x="82" y="630" class="txt">3/4 buff_alive / buff_cooldown_norm</text>
+  <rect x="64" y="654" width="472" height="50" class="chip" fill="#bfdbfe"/><text x="82" y="686" class="txt">5 monster_risk</text>
+  <rect x="64" y="710" width="472" height="76" class="chip" fill="#bfdbfe"/>
+  <text x="82" y="740" class="txt">6 hero_layer / 7 flash_ready_layer</text>
+  <text x="82" y="768" class="txt">8 buff_active_layer</text>
+
+  <rect x="580" y="340" width="420" height="470" class="box" fill="#dcfce7"/>
+  <text x="604" y="378" class="h2">Global Tensor (6 x 32 x 32 = 6144)</text>
+  <text x="604" y="407" class="sub">128x128 全局记忆池化到 32x32，保留长期地形/目标分布。</text>
+  <rect x="604" y="430" width="372" height="50" class="chip" fill="#bbf7d0"/><text x="622" y="462" class="txt">0 global_passable</text>
+  <rect x="604" y="486" width="372" height="50" class="chip" fill="#bbf7d0"/><text x="622" y="518" class="txt">1 global_explored</text>
+  <rect x="604" y="542" width="372" height="50" class="chip" fill="#bbf7d0"/><text x="622" y="574" class="txt">2 global_treasure_alive</text>
+  <rect x="604" y="598" width="372" height="50" class="chip" fill="#bbf7d0"/><text x="622" y="630" class="txt">3/4 global_buff_alive / cooldown_norm</text>
+  <rect x="604" y="654" width="372" height="50" class="chip" fill="#bbf7d0"/><text x="622" y="686" class="txt">5 global_monster_risk</text>
+
+  <rect x="1020" y="340" width="260" height="470" class="box" fill="#fef3c7"/>
+  <text x="1042" y="378" class="h2">Scalar (48)</text>
+  <text x="1042" y="407" class="sub">结构化状态摘要</text>
+  <rect x="1042" y="430" width="216" height="90" class="chip" fill="#fde68a"/>
+  <text x="1058" y="462" class="txt">base (28)</text>
+  <text x="1058" y="490" class="sub">坐标/分数/风险/legal比例</text>
+  <rect x="1042" y="536" width="216" height="90" class="chip" fill="#fde68a"/>
+  <text x="1058" y="568" class="txt">last_action_onehot (16)</text>
+  <rect x="1042" y="642" width="216" height="90" class="chip" fill="#fde68a"/>
+  <text x="1058" y="674" class="txt">prev_reward_vector (4)</text>
+
+  <text x="1042" y="772" class="sub">temporal token(96) 由 local/global/scalar</text>
+  <text x="1042" y="794" class="sub">压缩后写入 63 长度环形缓冲。</text>
+</svg>

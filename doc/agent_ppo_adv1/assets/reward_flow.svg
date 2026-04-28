@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560">
+  <defs>
+    <style>
+      .title { font: 700 28px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .h2 { font: 700 18px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .txt { font: 600 14px "Segoe UI", "Microsoft YaHei", sans-serif; fill: #1e293b; }
+      .box { stroke: #0f172a; stroke-width: 2; rx: 12; ry: 12; }
+      .arrow { stroke: #0f172a; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="560" fill="#f8fafc"/>
+  <text x="40" y="52" class="title">Reward Shaping 组合与安全保护</text>
+
+  <rect x="40" y="110" width="190" height="90" class="box" fill="#dbeafe"/>
+  <text x="62" y="145" class="h2">survive</text>
+  <text x="62" y="172" class="txt">+0.01 / step</text>
+
+  <rect x="250" y="110" width="210" height="90" class="box" fill="#dcfce7"/>
+  <text x="272" y="145" class="h2">monster dist</text>
+  <text x="272" y="172" class="txt">0.15 * (d_t - d_t-1)</text>
+
+  <rect x="480" y="110" width="210" height="90" class="box" fill="#fef3c7"/>
+  <text x="514" y="145" class="h2">treasure</text>
+  <text x="514" y="172" class="txt">1.2 * delta_treasure</text>
+
+  <rect x="710" y="110" width="210" height="90" class="box" fill="#fde68a"/>
+  <text x="760" y="145" class="h2">buff</text>
+  <text x="742" y="172" class="txt">0.6 * delta_buff</text>
+
+  <rect x="940" y="110" width="210" height="90" class="box" fill="#fecaca"/>
+  <text x="978" y="145" class="h2">explore</text>
+  <text x="958" y="172" class="txt">0.25 * new_cells_ratio</text>
+
+  <rect x="1170" y="110" width="90" height="90" class="box" fill="#e9d5ff"/>
+  <text x="1188" y="145" class="h2">flash</text>
+  <text x="1184" y="172" class="txt">+0.08/-0.03</text>
+
+  <rect x="350" y="270" width="580" height="100" class="box" fill="#e0e7ff"/>
+  <text x="520" y="310" class="h2">terminal bonus/penalty</text>
+  <text x="430" y="338" class="txt">terminated: -10.0, truncated: +10.0</text>
+
+  <rect x="420" y="420" width="440" height="90" class="box" fill="#c7d2fe"/>
+  <text x="560" y="454" class="h2">reward safety</text>
+  <text x="450" y="480" class="txt">NaN/Inf guard + clip to [-20, 20]</text>
+
+  <path d="M135 200 L460 270" class="arrow"/>
+  <path d="M355 200 L500 270" class="arrow"/>
+  <path d="M585 200 L560 270" class="arrow"/>
+  <path d="M815 200 L640 270" class="arrow"/>
+  <path d="M1045 200 L720 270" class="arrow"/>
+  <path d="M1215 200 L810 270" class="arrow"/>
+  <path d="M640 370 L640 420" class="arrow"/>
+</svg>
+
