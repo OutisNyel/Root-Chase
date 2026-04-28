@@ -2,5 +2,48 @@ train/
 dev/log/
 release/
 
-# Checkpoint files.
+# Python/runtime caches.
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Local environments and editor state.
+.venv/
+.env
+.env.*
+.idea/
+
+# Logs and local monitoring output.
+*.log
+train_monitor/tensorboard/
+
+# Model/checkpoint artifacts. Keep these out of public source unless
+# intentionally exported through a private release process.
 *.pkl
+*.pt
+*.pth
+*.onnx
+*.npy
+*.npz
+code/agent_ppo/ckpt/
+
+# Exported/private reference material and experiment reports.
+doc/html/
+doc/md/
+
+# Common secret material.
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_dsa
+id_ed25519
+*credentials*
+*secret*
+*token*
+*password*
+*passwd*
+*cookie*
+*session*

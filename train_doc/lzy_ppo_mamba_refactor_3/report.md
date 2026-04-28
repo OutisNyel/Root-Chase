@@ -1,7 +1,7 @@
 # lzy_ppo_mamba_refactor_3 训练评估
 
 评估时间：2026-04-25 04:33  
-数据来源：`train_monitor/tensorboard/events.out.tfevents.1777062557.Outis.41980.0`  
+数据来源：`train_monitor/tensorboard/events.out.tfevents.<timestamp>.<host>.<pid>.0`  
 转换 manifest：`train_monitor/tensorboard/aisrv_rl_helper_manifest.json`
 
 ## 数据范围
